@@ -21,10 +21,31 @@ http.createServer((req,res)=>{// call back func
        if(url === "/todos"){
        }else if(url === "/"){
         if(method === "GET"){
+        }else if(method === "POST"){
+        }else if(method === "DELETE"){
+            let body ='';
+            req.on ("error",(err)=>{
+                console.error(err);
+            })
+            .on("data", (chunk)=>{
+                body += chunk;
+            })
+            .on("end", () => {
+                body = JSON.parse(body);
+
+                let newToDo = toDoList;
+                newToDo.push(body.devtown);
+                console.log(newToDo);
+                //console.log("data: ", body);
+            });
+        }
+             else{
+
+             }
             res.writeHead(200);
             res.write(toDOList.toString());
         }
-       }
+
         res.end();
        
     //res.writeHead(200, {"content-Type": "text/html"});
